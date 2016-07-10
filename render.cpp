@@ -113,7 +113,7 @@ protected:
         };
         // screen space location
         SDL_Rect dst = SDL_Rect {
-            int16_t(tx) + (state==CROWNED ? 2 : 1),
+            int16_t(tx + (state==CROWNED ? 2 : 1)),
             int16_t(ty),
             16,
             8
@@ -141,7 +141,7 @@ protected:
         const int32_t ty = int32_t(30.f-lx *4.f+ly*7.f - lz * 8.f);
         // sprite sheet location
         SDL_Rect src = SDL_Rect {
-            (clr==WHITE ? 0 : 16), 0, 16, 8
+            Sint16(clr==WHITE ? 0 : 16), 0, 16, 8
         };
         // screen space location
         SDL_Rect dst = SDL_Rect {
@@ -326,14 +326,16 @@ public:
     {
         // init the SDL library
         if (SDL_Init(SDL_INIT_VIDEO)) {
+            log("unable to initalize SDL video");
             return false;
         }
         // open and SDL window at 4x scale
         screen = SDL_SetVideoMode(WIDTH*4, HEIGHT*4, 32, 0);
         if (!screen) {
+            log("unable to create main surface");
             return false;
         }
-        // craete subtarget
+        // create subtarget
         sub_target = SDL_CreateRGBSurface(
             SDL_SWSURFACE, 
             WIDTH, 
@@ -344,13 +346,15 @@ public:
             0xff<<0, 
             0xff<<24);
         if (!sub_target) {
+            log("unable to create subtarget surface");
             return false;
         }
         // load src graphics
-        bmp_board = SDL_LoadBMP("board.bmp");
-        bmp_sprites = SDL_LoadBMP("sprites.bmp");
+        bmp_board = SDL_LoadBMP("art/board.bmp");
+        bmp_sprites = SDL_LoadBMP("art/sprites.bmp");
         // check all gfx have loaded
         if (!bmp_board||!bmp_sprites) {
+            log("unable to load art assets");
             return false;
         }
         // set transparency for the sprites

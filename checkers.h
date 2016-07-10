@@ -138,3 +138,5 @@ protected:
 extern player_t * new_stdio_player(colour_e);
 extern player_t * new_tcp_player(colour_e);
 extern render_t * new_sdl_render();
+
+void log(const char * fmt, ...);

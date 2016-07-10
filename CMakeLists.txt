@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 2.8)
 project(checkers)
 
 if(NOT MSVC)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif()
 
 set(CPP_FILES main.cpp
@@ -11,7 +11,9 @@ set(CPP_FILES main.cpp
 			  tcp_player.cpp
 			  move.cpp
 			  board.cpp
-			  render.cpp)
+			  render.cpp
+              log.cpp)
+
 set(HPP_FILES checkers.h)
 
 add_executable(checkers ${CPP_FILES} ${HPP_FILES})
