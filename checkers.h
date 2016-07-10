@@ -84,7 +84,7 @@ struct player_t
     // query if the player is currently connected
     virtual bool is_connected() = 0;
     // check if we have received a move from the player
-    virtual bool poll_move(move_t &) = 0;
+    virtual bool poll_move(move_t & out) = 0;
     // inform the player they have sent an invalid move
     virtual bool invalid_move(const move_t & move) = 0;
     // send the opponents move
@@ -99,7 +99,8 @@ struct player_t
     virtual bool bad_input() = 0;
 };
 
-struct render_t {
+struct render_t
+{
     // start the renderer
     virtual bool init() = 0;
     // per frame renderer update
@@ -135,8 +136,19 @@ protected:
     render_t * render;
 };
 
+struct tcp_factory_t
+{
+    tcp_factory_t();
+    ~tcp_factory_t();
+    bool start();
+    bool stop();
+    player_t * new_tcp_player(colour_e clr);
+protected:
+    struct impl_t;
+    impl_t * imp_;
+};
+
 extern player_t * new_stdio_player(colour_e);
-extern player_t * new_tcp_player(colour_e);
 extern render_t * new_sdl_render();
 
 void log(const char * fmt, ...);

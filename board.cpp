@@ -33,7 +33,7 @@ bool board_t::serialize(std::string &out) const
     // clear output string
     out.clear();
     // for each square on the board
-    for (int32_t i = 0; i<board.size(); ++i) {
+    for (size_t i = 0; i<board.size(); ++i) {
 
         const auto piece_index = board[i];
 

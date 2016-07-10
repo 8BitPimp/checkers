@@ -2,11 +2,11 @@
 #include <stdio.h>
 
 
-void log(const char * fmt, ...) {
+void log(const char * fmt, ...)
+{
     va_list vargs;
     va_start(vargs, fmt);
-
-    vprintf(fmt, vargs);
-
+    vfprintf(stdout, fmt, vargs);
     va_end(vargs);
+    fputc('\n', stdout);
 }

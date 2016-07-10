@@ -14,11 +14,17 @@ void game_thread(checkers_t * game)
 
 int main(int argc, char * args[])
 {
+    tcp_factory_t fact_;
+    if (!fact_.start()) {
+        return 1;
+    }
+
     // create two players
     std::array<player_t *, 2> players = {
-        new_stdio_player(BLACK),
-        new_stdio_player(WHITE)
+        fact_.new_tcp_player(BLACK),
+        fact_.new_tcp_player(WHITE)
     };
+
     // wait for both players to connect
     for (;;) {
         // if both players have connected
@@ -58,6 +64,8 @@ int main(int argc, char * args[])
 #if 0
     thread->join();
 #endif
+
     // end
+    fact_.stop();
     return 0;
 }

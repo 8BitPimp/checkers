@@ -33,7 +33,7 @@ protected:
             return false;
         }
         printf(".  0 1 2 3 4 5 6 7\n");
-        for (int i = 0; i<input.size(); ++i) {
+        for (size_t i = 0; i<input.size(); ++i) {
             if (i%16==0) {
                 if (i>0) {
                     putc('\n', stdout);
